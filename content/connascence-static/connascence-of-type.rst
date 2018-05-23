@@ -30,4 +30,37 @@ How is this function supposed to be called? Here are a few different options:
     calculate_age('1', '9', '1984')
     calculate_age('1', 'September', '1984')
 
-.. TODO - need an example of how to fix this.
+This can be handled by using statically types structures for languages that
+support them:
+
+.. code-block:: c++
+
+    struct date {
+        int day;
+        int month;
+        int year;
+    };
+
+    int calculate_age(date date_of_birth) {
+        # do the calculation
+    }
+
+    date birth_date = {
+        .day = 1,
+        .month = 9, // "September" results in a compiler error
+        .year = 1984
+    };
+
+    calculate_age(birth_date);
+
+If the used language does not provide any means of checking types there is
+always the option to fall back to reflect the type in the name of the argument:
+
+.. code-block:: python
+
+    def calculate_age(birth_day_asint, birth_month_asint, birth_year_asint):
+        # do the calculation here
+
+    def calculate_age(birth_day_asstring, birth_month_asstring, birth_year_asstring):
+        # do the calculation here
+
